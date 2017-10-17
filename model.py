@@ -10,25 +10,32 @@ class Organization(db.Model):
     postal_code = db.Column(db.String(255))
     telephone = db.Column(db.String(255))
     email_address = db.Column(db.String(255))
-    slogan =db.Column(db.String(255))
-    auction_date = db.Column(db.DateTime)
-    next_auction_date = db.Column(db.DateTime)
-    logo_image = dn.column(db.Integer)
+    logo_image = db.column(db.Integer)
+
+
+class Auction(db.Model):
+    id = db.Column(db.Integer, primarykey = True)
+    description = db.Column(db.String(255))
+    date = db.Column(db.integer)
+    status = db.Column(db.integer)
 
 
 class Items(db.Model):
     id = db.Column(db.Integer, primarykey = True)
+    auction_id = db.Column(db.integer)
     donor_id = db.Column(db.Integer)
-    product = db.Column(db.String(255))
+    description = db.Column(db.String(255))
     value = db.column(db.Float)
-    theme = db.Column(db.String(255))
-    auction_id = db.Column(db.Integer)
-    theme_id = db.Column(db.Integer)
+    price = db.column(db.Float)
+    reserve = db.Column(db.float)
+    table_id = db.Column(db.Integer)
+    is_sold = db.Column(db.Boolean)
+    sold_for = db.Column(db.float)
 
 
 class Customer(db.Model)
     id = db.Column(db.Integer, primarykey = True)
-    paddle = db.Column(db.Integer)
+    auction_id = db.Column(db.integer)
     last_name = db.Column(db.String(255))
     first_name = db.Column(db.String(255))
     title = db.Column(db.String(255))
@@ -46,6 +53,7 @@ class Customer(db.Model)
 
 class Donors(db.Model)
     id = db.Column(db.Integer, primarykey = True)
+    auction_id = db.Column(db.integer)
     business = db.Column(db.Boolean)
     company_name = db.Column(db.String(255))
     contact_last_name = db.Column(db.String(255))
@@ -66,8 +74,11 @@ class Donors(db.Model)
     # donated_item = many-to-one relation
 
 
-class Theme(db.Model):
+class Table(db.Model):
     id = db.Column(db.Integer, primarykey = True)
+    auction_id = db.Column(db.integer)
+    status = db.Column(db.Integer)
+    type = db.Column(db.Integer)
     name = db.Column(db.String(255))
     picture_id = db.Column(db.Integer)
 
@@ -75,4 +86,5 @@ class Theme(db.Model):
 class Pictures(db.Model):
     id = db.Column(db.Integer, primarykey = True)
     file_name = db.Column(db.String(255))
-    thumbnail_name = db.Column(db.String(255))
+    thumb_name = db.Column(db.String(255))
+
