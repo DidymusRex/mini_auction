@@ -1,4 +1,4 @@
-from auction import app
+from auction import app, db
 from forms import LoginUserForm, RegisterUserForm
 from flask import render_template, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,7 +24,7 @@ def login():
         return '<h1>Invalid username or password</h1>'
         # return '<h1>' + form.username.data + ' ' + form.password.data + '</h1>'
 
-    return render_template('login.html', form=form)
+    return render_template('login_user.html', form=form)
 
 
 @app.route('/logout_user')
@@ -48,6 +48,12 @@ def register_user():
         # return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
 
     return render_template('register_user.html', form=form)
+
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
 
 
 ## GLOBAL
