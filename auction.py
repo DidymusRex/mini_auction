@@ -4,16 +4,16 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 
 
-Auction = Flask('auction')
+app = Flask(__name__)
 Auction.config.from_pyfile('config.cfg')
 
 db = SQLAlchemy(Auction)
 
 from views import *
 
-Bootstrap(Auction)
+Bootstrap(app)
 login_manager = LoginManager()
-login_manager.init_app(Auction)
+login_manager.init_app(app)
 login_manager.login_view = 'login_user'
 
 
@@ -23,4 +23,4 @@ def load_user(user_id):
 
 
 if __name__ == '__main__':
-    Auction.run()
+    app.run()
