@@ -1,7 +1,7 @@
 from auction import db
 
 class Organization(db.Model):
-    id = db.Column(db.Integer, primarykey = True)
+    id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(255))
     address1 = db.Column(db.String(255))
     address2 = db.Column(db.String(255))
@@ -14,28 +14,28 @@ class Organization(db.Model):
 
 
 class Auction(db.Model):
-    id = db.Column(db.Integer, primarykey = True)
+    id = db.Column(db.Integer, primary_key = True)
     description = db.Column(db.String(255))
-    date = db.Column(db.integer)
-    status = db.Column(db.integer)
+    date = db.Column(db.Integer)
+    status = db.Column(db.Integer)
 
 
 class Items(db.Model):
-    id = db.Column(db.Integer, primarykey = True)
-    auction_id = db.Column(db.integer)
+    id = db.Column(db.Integer, primary_key = True)
+    auction_id = db.Column(db.Integer)
     donor_id = db.Column(db.Integer)
     description = db.Column(db.String(255))
     value = db.column(db.Float)
     price = db.column(db.Float)
-    reserve = db.Column(db.float)
+    reserve = db.Column(db.Float)
     table_id = db.Column(db.Integer)
     is_sold = db.Column(db.Boolean)
-    sold_for = db.Column(db.float)
+    sold_for = db.Column(db.Float)
 
 
-class Customer(db.Model)
-    id = db.Column(db.Integer, primarykey = True)
-    auction_id = db.Column(db.integer)
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    auction_id = db.Column(db.Integer)
     last_name = db.Column(db.String(255))
     first_name = db.Column(db.String(255))
     title = db.Column(db.String(255))
@@ -51,9 +51,9 @@ class Customer(db.Model)
     balance = db.column(db.Float)
 
 
-class Donors(db.Model)
-    id = db.Column(db.Integer, primarykey = True)
-    auction_id = db.Column(db.integer)
+class Donors(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    auction_id = db.Column(db.Integer)
     business = db.Column(db.Boolean)
     company_name = db.Column(db.String(255))
     contact_last_name = db.Column(db.String(255))
@@ -75,8 +75,8 @@ class Donors(db.Model)
 
 
 class Table(db.Model):
-    id = db.Column(db.Integer, primarykey = True)
-    auction_id = db.Column(db.integer)
+    id = db.Column(db.Integer, primary_key = True)
+    auction_id = db.Column(db.Integer)
     status = db.Column(db.Integer)
     type = db.Column(db.Integer)
     name = db.Column(db.String(255))
@@ -84,7 +84,7 @@ class Table(db.Model):
 
 
 class Pictures(db.Model):
-    id = db.Column(db.Integer, primarykey = True)
+    id = db.Column(db.Integer, primary_key = True)
     file_name = db.Column(db.String(255))
     thumb_name = db.Column(db.String(255))
 

@@ -1,3 +1,4 @@
 .idea
 Auction_env
 db
+*.pyc

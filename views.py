@@ -1,10 +1,16 @@
 from auction import Auction
+from forms import LoginForm
 
 @Auction.route('/')
 def index():
-  return '<h1>index</h1>
+  return '<h1>index</h1>'
 
 # Login
+@Auction.route('/login')
+def login():
+  form = LoginForm
+  return render_template('index.html')
+
 # Logout
 
 ## GLOBAL
