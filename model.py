@@ -2,7 +2,7 @@ from auction import db
 from flask_login import UserMixin
 
 
-class User(UserMixin, db.Model):
+class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
     email = db.Column(db.String(50), unique=True)
@@ -22,7 +22,7 @@ class Organization(db.Model):
     logo_image = db.column(db.Integer)
 
 
-class Auction(db.Model):
+class Auctions(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     description = db.Column(db.String(255))
     date = db.Column(db.Integer)
@@ -42,7 +42,7 @@ class Items(db.Model):
     sold_for = db.Column(db.Float)
 
 
-class Customer(db.Model):
+class Customers(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     auction_id = db.Column(db.Integer)
     last_name = db.Column(db.String(255))
@@ -83,7 +83,7 @@ class Donors(db.Model):
     # donated_item = many-to-one relation
 
 
-class Table(db.Model):
+class Tables(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     auction_id = db.Column(db.Integer)
     status = db.Column(db.Integer)
