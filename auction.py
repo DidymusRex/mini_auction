@@ -4,7 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 
 
-Auction = Flask(__name__)
+Auction = Flask('auction')
 Auction.config.from_pyfile('config.cfg')
 
 db = SQLAlchemy(Auction)
