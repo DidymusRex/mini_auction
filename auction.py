@@ -14,7 +14,7 @@ from views import *
 Bootstrap(Auction)
 login_manager = LoginManager()
 login_manager.init_app(Auction)
-login_manager.login_view = 'login'
+login_manager.login_view = 'login_user'
 
 
 @login_manager.user_loader

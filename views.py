@@ -1,5 +1,5 @@
 from auction import Auction
-from forms import LoginForm, RegisterForm
+from forms import LoginUserForm, RegisterUserForm
 from flask import render_template, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -10,9 +10,9 @@ def index():
     return '<h1>index</h1>'
 
 
-@Auction.route('/login', methods=['GET', 'POST'])
+@Auction.route('/login_user', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
+    form = LoginUserForm()
 
     if form.validate_on_submit():
         user = Users.query.filter_by(username=form.username.data).first()
@@ -27,16 +27,16 @@ def login():
     return render_template('login.html', form=form)
 
 
-@Auction.route('/logou')
+@Auction.route('/logout_user')
 @login_required
 def logout():
     logout_user()
-    redirect(url_for('login'))
+    redirect(url_for('login_user'))
 
 
-@Auction.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegisterForm()
+@Auction.route('/register_user', methods=['GET', 'POST'])
+def register_user():
+    form = RegisterUserForm()
 
     if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='sha256')
@@ -47,7 +47,7 @@ def register():
         return '<h1>New user has been created!</h1>'
         # return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
 
-    return render_template('register.html', form=form)
+    return render_template('register_user.html', form=form)
 
 
 ## GLOBAL

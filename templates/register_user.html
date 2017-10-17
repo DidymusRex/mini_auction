@@ -2,7 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
-Register
+Register User
 {% endblock %}
 
 {% block styles %}
@@ -13,7 +13,7 @@ Register
 {% block content %}
 <div class="container">
 
-  <form class="form-signin" method="POST" action="/register">
+  <form class="form-signin" method="POST" action="/register_user">
     <h2 class="form-signin-heading">Sign Up</h2>
     {{ form.hidden_tag() }}
     {{ wtf.form_field(form.username) }}
