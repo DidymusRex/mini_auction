@@ -1,5 +1,13 @@
-from auction import db
+from auction import app, db
 from flask_login import UserMixin
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
+
+
+migrate = Migrate(app, db)
+manager = Manager(app)
+
+manager.add_command('db', MigrateCommand)
 
 
 class Users(UserMixin, db.Model):
@@ -10,7 +18,7 @@ class Users(UserMixin, db.Model):
 
 
 class Organization(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     address1 = db.Column(db.String(255))
     address2 = db.Column(db.String(255))
@@ -23,14 +31,14 @@ class Organization(db.Model):
 
 
 class Auctions(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255))
     date = db.Column(db.Integer)
     status = db.Column(db.Integer)
 
 
 class Items(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     auction_id = db.Column(db.Integer)
     donor_id = db.Column(db.Integer)
     description = db.Column(db.String(255))
@@ -43,7 +51,7 @@ class Items(db.Model):
 
 
 class Customers(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     auction_id = db.Column(db.Integer)
     last_name = db.Column(db.String(255))
     first_name = db.Column(db.String(255))
@@ -61,7 +69,7 @@ class Customers(db.Model):
 
 
 class Donors(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     auction_id = db.Column(db.Integer)
     business = db.Column(db.Boolean)
     company_name = db.Column(db.String(255))
@@ -84,7 +92,7 @@ class Donors(db.Model):
 
 
 class Tables(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     auction_id = db.Column(db.Integer)
     status = db.Column(db.Integer)
     type = db.Column(db.Integer)
@@ -93,7 +101,10 @@ class Tables(db.Model):
 
 
 class Pictures(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(255))
     thumb_name = db.Column(db.String(255))
 
+
+if __name__ == '__main__':
+    manager.run()
