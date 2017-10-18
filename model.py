@@ -1,17 +1,5 @@
-from auction import Auction, db
+from auction import db
 from flask_login import UserMixin
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
-
-"""
-python model.py db init
-python model.py db migrate
-python model.py db upgrade
-"""
-migrate = Migrate(Auction, db)
-manager = Manager(Auction)
-
-manager.add_command('db', MigrateCommand)
 
 
 class Users(UserMixin, db.Model):
@@ -108,7 +96,3 @@ class Pictures(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(255))
     thumb_name = db.Column(db.String(255))
-
-
-if __name__ == '__main__':
-    manager.run()
