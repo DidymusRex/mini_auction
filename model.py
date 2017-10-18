@@ -1,11 +1,15 @@
-from auction import app, db
+from auction import Auction, db
 from flask_login import UserMixin
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-
-migrate = Migrate(app, db)
-manager = Manager(app)
+"""
+python model.py db init
+python model.py db migrate
+python model.py db upgrade
+"""
+migrate = Migrate(Auction, db)
+manager = Manager(Auction)
 
 manager.add_command('db', MigrateCommand)
 
