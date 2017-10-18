@@ -7,10 +7,15 @@ from flask_login import LoginManager
 Auction = Flask(__name__)
 Auction.config.from_pyfile('config.cfg')
 
-# Bootstrap needs to come before SQLAlchemy
+"""
+Bootstrap needs to be instantiated before SQLAlchemy
+"""
 Bootstrap(Auction)
 db = SQLAlchemy(Auction)
 
+"""
+Semi-circular imports needed because of internal dependencies, Users has to be imported after db is instantiated
+"""
 from views import *
 from model import Users
 

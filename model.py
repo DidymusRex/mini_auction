@@ -3,6 +3,9 @@ from flask_login import UserMixin
 
 
 class Users(UserMixin, db.Model):
+    """
+    Administrative users
+    """
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
     email = db.Column(db.String(50), unique=True)
@@ -10,6 +13,9 @@ class Users(UserMixin, db.Model):
 
 
 class Organization(db.Model):
+    """
+    Organization information - single row
+    """
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
     address1 = db.Column(db.String(255))
@@ -23,6 +29,9 @@ class Organization(db.Model):
 
 
 class Auctions(db.Model):
+    """
+    A record for each auction event (day)
+    """
     id = db.Column(db.Integer, primary_key=True)
     description = db.Column(db.String(255))
     date = db.Column(db.Integer)
@@ -30,6 +39,9 @@ class Auctions(db.Model):
 
 
 class Items(db.Model):
+    """
+    List of items for auction
+    """
     id = db.Column(db.Integer, primary_key=True)
     auction_id = db.Column(db.Integer)
     donor_id = db.Column(db.Integer)
@@ -43,6 +55,9 @@ class Items(db.Model):
 
 
 class Customers(db.Model):
+    """
+    AKA bidders
+    """
     id = db.Column(db.Integer, primary_key=True)
     auction_id = db.Column(db.Integer)
     last_name = db.Column(db.String(255))
@@ -61,6 +76,9 @@ class Customers(db.Model):
 
 
 class Donors(db.Model):
+    """
+    Donor and donor prospect list
+    """
     id = db.Column(db.Integer, primary_key=True)
     auction_id = db.Column(db.Integer)
     business = db.Column(db.Boolean)
@@ -84,6 +102,9 @@ class Donors(db.Model):
 
 
 class Tables(db.Model):
+    """
+    Smaller units of auction (i.e. individual silent auctions and live auctions)
+    """
     id = db.Column(db.Integer, primary_key=True)
     auction_id = db.Column(db.Integer)
     status = db.Column(db.Integer)
@@ -93,6 +114,9 @@ class Tables(db.Model):
 
 
 class Pictures(db.Model):
+    """
+    Images should be in the static directory
+    """
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(255))
     thumb_name = db.Column(db.String(255))

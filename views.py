@@ -2,17 +2,23 @@ from auction import Auction, db
 from forms import LoginUserForm, CreateUserForm
 from flask import render_template, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user, current_user
 from model import Users
 
 
 @Auction.route('/')
 def index():
+    """
+    Root redirects to login
+    """
     return redirect(url_for('login'))
 
 
 @Auction.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Log in admin users, flash back error message on invalid credentials
+    """
     form = LoginUserForm()
 
     if form.validate_on_submit():
@@ -22,12 +28,16 @@ def login():
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
 
+    flash('Invalid username or password entered.')
     return render_template('login.html', form=form)
 
 
 @Auction.route('/logout')
 @login_required
 def logout():
+    """
+    Log out admin user and present login page
+    """
     flash(current_user.username + ' is logged out')
     logout_user()
     return redirect(url_for('login'))
@@ -35,6 +45,9 @@ def logout():
 
 @Auction.route('/register', methods=['GET', 'POST'])
 def create_user():
+    """
+    Create a new user and send them to the login page
+    """
     form = CreateUserForm()
 
     if form.validate_on_submit():
@@ -54,30 +67,43 @@ def create_user():
 @Auction.route('/dashboard')
 @login_required
 def dashboard():
+    """
+    Entry point to the application
+    """
     return render_template('dashboard.html')
 
 
-## GLOBAL
-# Admin (organization)
-# Manage Users and Roles
-# Manage Auctions
+"""
+To Do List:
 
-## By Auction
-## Pre
-# Manage Donors (bulk copy)
-# Manage Customers (bulk copy)
-# Manage Donations (items)
-# Manage Tables (Names, item assignments)
-# Bid sheets
+Global
+----------
+Admin (organization)
+Manage Users and Roles
+Manage Auctions
 
-## Active
-# Check-in Customer
-# Check-out Customer
-# Manage Bids
-# Open/Close Tables
+By Auction
+----------
+Pre-auction
+Manage Donors (bulk copy)
+Manage Customers (bulk copy)
+Manage Donations (items)
+Manage Tables (Names, item assignments)
+Bid sheets
 
-## Post
-# Close Auction
-# Bill unpaid Customers
+Active auction
+Check-in Customer
+Check-out Customer
+Manage Bids
+Open/Close Tables
 
-## Reports
+Post auction
+Close Auction
+Bill unpaid Customers
+
+Reports
+Bid sheets
+Invoices
+Closing reports
+Letters
+"""
