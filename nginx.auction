@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    server_name 192.168.0.21;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:///home/jgrover/Projects/mimi_auction/auction.sock;
+    }
+}
+

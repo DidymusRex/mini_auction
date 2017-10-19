@@ -1,0 +1,14 @@
+[Unit]
+Description=uWSGI instance to serve auction app
+After=network.target
+
+[Service]
+user=jgrover
+Group=www-data
+WorkingDirectory=/home/jgrover/Projects/mini_auction
+Environment="PATH=/home/jgrover/Projects/mini_auction/Auction_env/bin"
+ExecStart=/home/jgrover/Projects/mini_auction/Auction_env/bin/uwsgi --ini auction.ini
+
+[Install]
+WantedBy=multi-user.target
+
