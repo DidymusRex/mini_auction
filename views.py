@@ -1,9 +1,10 @@
 from auction import Auction, db
 from forms import LoginUserForm, CreateUserForm
 from flask import render_template, redirect, url_for, flash
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from model import Users
+from sqlalchemy import or_
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 @Auction.route('/')
@@ -27,8 +28,11 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
+            else:
+                flash('Invalid password entered.')
+        else:
+            flash('Invalid username entered.')
 
-    flash('Invalid username or password entered.')
     return render_template('login.html', form=form)
 
 
@@ -51,16 +55,18 @@ def create_user():
     form = CreateUserForm()
 
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='sha256')
-        new_user = Users(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
+        user = Users.query.filter(or_(Users.username == form.username.data, Users.email == form.email.data)).first()
+        if user:
+            flash('Username or Email already exists')
+        else:
+            hashed_password = generate_password_hash(form.password.data, method='sha256')
+            new_user = Users(username=form.username.data, email=form.email.data, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
 
-        flash('You may now log in as ' + new_user.usename)
-        return redirect(url_for('login'))
-        # return '<h1>' + form.username.data + ' ' + form.email.data + ' ' + form.password.data + '</h1>'
+            flash('You may now log in as ' + new_user.username)
+            return redirect(url_for('login'))
 
-    flash('Registration error, please try again')
     return render_template('register.html', form=form)
 
 
