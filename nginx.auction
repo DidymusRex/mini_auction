@@ -4,7 +4,7 @@ server {
 
     location / {
         include uwsgi_params;
-        uwsgi_pass unix:///home/jgrover/Projects/mimi_auction/auction.sock;
+        uwsgi_pass unix:///home/jgrover/Projects/mini_auction/auction.sock;
     }
 }
 
