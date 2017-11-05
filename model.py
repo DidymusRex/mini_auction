@@ -76,6 +76,7 @@ class Contacts(db.Model):
 
 
 class Users(UserMixin, Contacts):
+    username = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255), nullable=False)
 
 
@@ -101,4 +102,3 @@ class Pictures(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String(255))
     thumb_name = db.Column(db.String(255))
-
