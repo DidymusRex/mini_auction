@@ -1,10 +1,14 @@
-from auction import Auction, db
+from auction import Auction, db, admin
 from forms import LoginUserForm, CreateUserForm
 from flask import render_template, redirect, url_for, flash
 from flask_login import login_user, login_required, logout_user, current_user
+from flask_admin.contrib.sqla import ModelView
 from model import Users
 from sqlalchemy import or_
 from werkzeug.security import generate_password_hash, check_password_hash
+
+
+admin.add_view(ModelView(Users, db.session))
 
 
 @Auction.route('/')
@@ -12,39 +16,7 @@ def index():
     """
     Root redirects to login
     """
-    return redirect(url_for('login'))
-
-
-@Auction.route('/login', methods=['GET', 'POST'])
-def login():
-    """
-    Log in admin users, flash back error message on invalid credentials
-    """
-    form = LoginUserForm()
-
-    if form.validate_on_submit():
-        user = Users.query.filter_by(username=form.username.data).first()
-        if user:
-            if check_password_hash(user.password, form.password.data):
-                login_user(user, remember=form.remember.data)
-                return redirect(url_for('dashboard'))
-            else:
-                flash('Invalid password entered.')
-        else:
-            flash('Invalid username entered.')
-
-    return render_template('login.html', form=form)
-
-
-@Auction.route('/logout')
-@login_required
-def logout():
-    """
-    Log out admin user and present login page
-    """
-    flash(current_user.username + ' is logged out')
-    logout_user()
-    return redirect(url_for('login'))
+    return redirect(url_for('user/sign-in'))
 
 
 @Auction.route('/register', methods=['GET', 'POST'])

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin
 from flask_login import LoginManager
 
 
@@ -12,6 +13,7 @@ Bootstrap needs to be instantiated before SQLAlchemy
 """
 Bootstrap(Auction)
 db = SQLAlchemy(Auction)
+admin = Admin(Auction, templpate_mode='bootstrap3')
 
 """
 Semi-circular imports needed because of internal dependencies, Users has to be imported after db is instantiated
@@ -19,9 +21,7 @@ Semi-circular imports needed because of internal dependencies, Users has to be i
 from views import *
 from model import Users
 
-login_manager = LoginManager()
-login_manager.init_app(Auction)
-login_manager.login_view = 'login'
+login_manager = LoginManager(Auction)
 
 
 @login_manager.user_loader
