@@ -11,6 +11,33 @@ Login
 {% endblock %}
 
 {% block content %}
+{% block navbar %}
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Mini Auction</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
+{% endblock %}
+
     <div class="container-fluid">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -25,12 +52,13 @@ Login
 
     <div class="container">
         <form class="form-signin" method="POST" action="/login">
-            <h2 class="form-signin-heading">Welcome to mini_auction, please sign in</h2>
+            <h2 class="form-signin-heading">Please sign in</h2>
             {{ form.hidden_tag() }}
             {{ wtf.form_field(form.username) }}
             {{ wtf.form_field(form.password) }}
             {{ wtf.form_field(form.remember) }}
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <p> Need an account? <a href="{{url_for('create_user')}}">Sign Up Here</a></p>
         </form>
     </div> <!-- /container -->
 {% endblock %}
