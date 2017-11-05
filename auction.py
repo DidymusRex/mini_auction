@@ -19,8 +19,7 @@ Semi-circular imports needed because of internal dependencies, Users has to be i
 from views import *
 from model import Users
 
-login_manager = LoginManager()
-login_manager.init_app(Auction)
+login_manager = LoginManager(Auction)
 login_manager.login_view = 'login'
 
 
