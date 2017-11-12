@@ -13,7 +13,7 @@ Bootstrap needs to be instantiated before SQLAlchemy
 """
 Bootstrap(Auction)
 db = SQLAlchemy(Auction)
-admin = Admin(Auction, templpate_mode='bootstrap3')
+admin = Admin(Auction, template_mode='bootstrap3')
 
 """
 Semi-circular imports needed because of internal dependencies, Users has to be imported after db is instantiated
