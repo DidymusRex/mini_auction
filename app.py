@@ -1,5 +1,26 @@
-from auction import db
-from flask_user import UserMixin
+from flask import Flask, render_template, redirect, url_for
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+from flask_bootstrap import Bootstrap
+from flask_user import UserManager, UserMixin, SQLAlchemyAdapter, login_required
+from flask_sqlalchemy import SQLAlchemy
+
+"""
+Build the app
+"""
+app = Flask(__name__)
+
+app.config['DEBUG'] = True
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/auction/mini_auction/db/Auction.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = 'Wee1nYiVbRa6gHNevSex0cOeLaiR7bOg'
+app.config['CSRF_ENABLED'] = True
+app.config['USER_ENABLE_EMAIL'] = True
+
+"""
+define the database model
+"""
+db = SQLAlchemy(app)
 
 
 class Organization(db.Model):
@@ -148,3 +169,57 @@ class Volunteer(db.Model):
     telephone_ext = db.Column(db.String(255))
     email_address = db.Column(db.String(255))
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+
+
+"""
+build the rest of the app infrastructure
+"""
+Bootstrap(app)
+"""
+User management
+"""
+db_adapter = SQLAlchemyAdapter(db, User)
+user_manager = UserManager(db_adapter, app)
+"""
+Admin pages
+"""
+admin = Admin(app, template_mode='bootstrap3')
+
+
+class UserView(ModelView):
+    create_modal = True
+
+
+class OrgView(ModelView):
+    create_modal = True
+
+
+class AuctionView(ModelView):
+    create_modal = True
+
+
+admin.add_view(UserView(User, db.session))
+admin.add_view(OrgView(Organization, db.session))
+admin.add_view(AuctionView(Auction, db.session))
+
+"""
+build the routes
+"""
+
+
+@app.route('/')
+def index():
+    return redirect(url_for('user.login'))
+
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    """
+    Entry point to the application
+    """
+    return render_template('dashboard.html')
+
+
+if __name__ == '__main__':
+    app.run()
