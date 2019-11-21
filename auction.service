@@ -6,8 +6,8 @@ After=network.target
 User=auction
 Group=www-data
 WorkingDirectory=/home/auction/mini_auction
-Environment="PATH=/home/auction/mini_auction/Auction_env/bin"
-ExecStart=/home/auction/mini_auction/Auction_env/bin/uwsgi --ini auction.ini
+Environment="PATH=/home/auction/mini_auction/venv/bin"
+ExecStart=/home/auction/mini_auction/venv/bin/uwsgi --ini auction.ini
 
 [Install]
 WantedBy=multi-user.target

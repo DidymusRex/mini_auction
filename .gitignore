@@ -3,3 +3,4 @@ Auction_env
 venv
 db
 *.pyc
+requirements.txt.*
