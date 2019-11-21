@@ -1,5 +1,5 @@
 #
-# mini-auction system setup
+# mini_auction system setup
 # REF: https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uwsgi-and-nginx-on-ubuntu-16-04
 #
 # RPi Zero W
@@ -59,7 +59,7 @@ pip install -r requirements.txt
 #
 # copy or link the auction.service file to /etc/systemd/systemd
 # ----------------------------------------------------------
-sudo ln -s /etc/systemd/system/myproject.service ~/mini-auction/auction.service
+sudo ln -s /etc/systemd/system/myproject.service ~/mini_auction/auction.service
 
 #
 # Set up uWSGI to start at boot
@@ -71,7 +71,7 @@ sudo systemctl enable auction
 # Configure nginx
 # Copy or link nginx.auction to /etc/nginx/sites-available/auction
 # ----------------------------------------------------------
-sudo ln -s /etc/nginx/sites-available/auction ~/mini-auction/nginx.auction
+sudo ln -s /etc/nginx/sites-available/auction ~/mini_auction/nginx.auction
 sudo ln -s /etc/nginx/sites-available/auction /etc/nginx/sites-enabled
 
 # check for errors in the nginx file
