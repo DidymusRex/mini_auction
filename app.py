@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask_bootstrap import Bootstrap
-from flask_user import UserManager, UserMixin, SQLAlchemyAdapter, login_required
+from flask_user import UserManager, UserMixin, login_required
 from flask_sqlalchemy import SQLAlchemy
 
 """
@@ -175,11 +175,12 @@ class Volunteer(db.Model):
 build the rest of the app infrastructure
 """
 Bootstrap(app)
+
 """
 User management
 """
-db_adapter = SQLAlchemyAdapter(db, User)
-user_manager = UserManager(db_adapter, app)
+user_manager = UserManager(app, db, User)
+
 """
 Admin pages
 """
