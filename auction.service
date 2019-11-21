@@ -3,7 +3,7 @@ Description=uWSGI instance to serve auction app
 After=network.target
 
 [Service]
-user=auction
+User=auction
 Group=www-data
 WorkingDirectory=/home/auction/mini_auction
 Environment="PATH=/home/auction/mini_auction/Auction_env/bin"
