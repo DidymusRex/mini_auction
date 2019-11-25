@@ -15,7 +15,7 @@ class Organization(db.Model):
     postal_code = db.Column(db.String(255))
     telephone = db.Column(db.String(255))
     email_address = db.Column(db.String(255))
-    logo_image = db.column(db.Integer)
+    logo_image = db.Column(db.Integer)
 
 
 class Event(db.Model):
@@ -51,8 +51,8 @@ class Item(db.Model):
     donor_id = db.Column(db.Integer)
     last_bid_id = db.Column(db.Integer)
     description = db.Column(db.String(255))
-    value = db.column(db.Float)
-    price = db.column(db.Float)
+    value = db.Column(db.Float)
+    price = db.Column(db.Float)
     reserve = db.Column(db.Float)
     is_sold = db.Column(db.Boolean)
 
@@ -148,3 +148,4 @@ class Volunteer(db.Model):
     telephone_ext = db.Column(db.String(255))
     email_address = db.Column(db.String(255))
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+
