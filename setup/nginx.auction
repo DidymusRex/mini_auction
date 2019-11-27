@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    server_name poc.mini-auction.net;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:///home/auction/mini_auction/auction.sock;
+    }
+}
+
