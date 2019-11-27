@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name poc.mini-auction.net;
+#   server_name poc.mini-auction.net;
 
     location / {
         include uwsgi_params;

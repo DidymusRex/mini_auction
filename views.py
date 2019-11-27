@@ -11,6 +11,9 @@ admin = Admin(Auction, template_mode='bootstrap3')
 user_manager = UserManager(Auction, db, User)
 admin.add_view(ModelView(User, db.session))
 
+@Auction.route('/')
+def plain():
+    return "Hello World"
 
 @Auction.route('/dashboard')
 @login_required

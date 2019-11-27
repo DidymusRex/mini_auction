@@ -59,7 +59,9 @@ pip install -r requirements.txt
 #
 # copy or link the auction.service file to /etc/systemd/systemd
 # ----------------------------------------------------------
-sudo ln -s /etc/systemd/system/myproject.service ~/mini_auction/auction.service
+# sudo ln -s /etc/systemd/system/auction.service ~/mini_auction/auction.service
+sudo cp /home/auction/mini_auction/setup/auction.service /etc/systemd/system/auction.service
+
 
 #
 # Set up uWSGI to start at boot
@@ -71,8 +73,10 @@ sudo systemctl enable auction
 # Configure nginx
 # Copy or link nginx.auction to /etc/nginx/sites-available/auction
 # ----------------------------------------------------------
-sudo ln -s /etc/nginx/sites-available/auction ~/mini_auction/nginx.auction
-sudo ln -s /etc/nginx/sites-available/auction /etc/nginx/sites-enabled
+# sudo ln -s /etc/nginx/sites-available/auction ~/mini_auction/nginx.auction
+sudo cp /home/auction/mini_auction/setup/nginx.auction /etc/nginx/sites-available/auction
+sudo ln -s /etc/nginx/sites-available/auction /etc/nginx/sites-enabled/auction
+
 
 # check for errors in the nginx file
 sudo nginx -t
@@ -84,7 +88,7 @@ sudo systemctl restart nginx
 # sudo less /var/log/nginx/error.log: checks the Nginx error logs.
 # sudo less /var/log/nginx/access.log: checks the Nginx access logs.
 # sudo journalctl -u nginx: checks the Nginx process logs.
-# sudo journalctl -u myproject: checks your Flask app’s uWSGI logs.
+# sudo journalctl -u auction: checks your Flask app’s uWSGI logs.
 # ----------------------------------------------------------
 
 
